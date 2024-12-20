@@ -1,9 +1,7 @@
 <?php
 require_once '../models/Mascota.php'; // Se incluye el modelo Mascota que gestiona los datos
-
 class MascotasController {
     private $model; // Se declara la propiedad del modelo
-
     // El constructor recibe la conexión a la base de datos y crea una instancia del modelo Mascota
     public function __construct($database) {
         $this->model = new Mascota($database); // Se pasa la conexión a la base de datos al modelo
