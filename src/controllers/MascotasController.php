@@ -11,10 +11,14 @@ class MascotasController {
     public function index() {
         // Se recuperan las mascotas perdidas desde el modelo
         $mascotas = $this->model->getMascotasPerdidas(); 
+        $promociones = $this->model->getpromociones(); // Se recuperan las promociones desde el modelo
+
         // Se llama a la vista correspondiente, enviándole la lista de mascotas
         require 'views/mascotas/index.php'; 
     }
 
+
+    
     // Controlador de la página de contacto
     public function contacto() {
         // Se carga la vista para la página de contacto

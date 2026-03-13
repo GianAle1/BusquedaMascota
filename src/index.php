@@ -49,7 +49,9 @@
                 <ul class="navbar-nav d-flex justify-content-center align-items-center">
                     <li class="nav-item"><a class="nav-link active" aria-current="page" href="views/nosotros.php">Nosotros</a></li>
                     <li class="nav-item"><a class="nav-link" href="index.php">Mascotas Perdidas</a></li>
-                    <li class="nav-item"><a class="nav-link" href="views/testimonio.php">Testimonio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="https://www.youtube.com/">Testimonio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="views/testimonio.php">Recomendaciones</a></li>
+
                 </ul>
                 
                 <!-- Opciones de autenticación -->
@@ -65,7 +67,7 @@
             </div>
         </div>
     </nav>
-
+                        
     <div class="container-custom">
         <h1 class="text-center">Mascotas Perdidas</h1>
         <a href="https://wa.me/51979007290" class="whatsapp-icon" target="_blank">
@@ -73,7 +75,9 @@
         <path d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232"/>
         </svg>
         </a>
+        
         <div class="row">
+            
             <?php 
             require_once 'config/database.php';
             require_once 'models/Mascota.php';
@@ -81,6 +85,17 @@
             $db = connectDB();
             $mascotaModel = new Mascota($db);
             $mascotas = $mascotaModel->getMascotasPerdidas();
+            $promociones = $mascotaModel->getpromociones();
+            
+            
+            foreach ($promociones as $promocion): ?> 
+                                   <div>
+                                     <?=$promocion['descripcion'] ?>      
+                                     <?=$promocion['id'] ?>  
+
+                                     <button  class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#promocionModal<?= $promocion['id'] ?>">Ver Detalles</button>
+                                    </div>
+                                <?php endforeach;
 
             foreach ($mascotas as $mascota): ?>
             <div class="card mb-3">
@@ -95,6 +110,9 @@
                                     <img src="<?= htmlspecialchars($imagen['ruta']) ?>" class="d-block w-100" alt="Imagen de <?= htmlspecialchars($mascota['nombre']) ?>">
                                     </div>
                                 <?php endforeach; ?>
+            <?php endforeach;
+                                 ?>
+
                             </div>
                             <button class="carousel-control-prev" type="button" data-bs-target="#carouselMascota<?= $mascota['id'] ?>" data-bs-slide="prev">
                                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -115,7 +133,7 @@
                     </div>
                 </div>
             </div>
-            <?php endforeach; ?>
+        
         </div>
     </div>
 

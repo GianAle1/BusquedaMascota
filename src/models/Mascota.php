@@ -11,7 +11,16 @@ class Mascota {
         $query = "SELECT * FROM mascotas";
         $stmt = $this->db->prepare($query);
         $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);    }
+
+    public function  getpromociones(){
+        // Obtener promociones
+        $query = "SELECT * FROM promocion";
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+        
     }
 
     public function getImagenesPorMascota($mascota_id) {
